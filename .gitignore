@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/gitlab-stats-web
+gitlab-stats-web.so
+gitlab-stats-web.dylib
+gitlab-stats-web.dll
+gitlab-stats-web.a
+gitlab-stats-web.lib
+gitlab-stats-web-test-*
+*.exe
+*.o
+*.obj
+*.lst
+dub.selections.json
