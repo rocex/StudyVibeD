@@ -14,3 +14,8 @@ gitlab-stats-web-test-*
 *.obj
 *.lst
 dub.selections.json
+GitLabStatsWeb.ipr
+GitLabStatsWeb.iws
+gitlab-stats-web.iml
+GitLabStatsWeb.iml
+out/
