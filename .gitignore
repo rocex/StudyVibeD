@@ -6,6 +6,6 @@ docs/
 *.o
 *.obj
 *.lst
+*.iml
 
 dub.selections.json
-GitLabStatsWeb.iml

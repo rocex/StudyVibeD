@@ -1,13 +1,18 @@
-doctype html
-html
-  head
-    title WebSocket Test
-    script(type='text/javascript', src='/scripts/websocket.js')
-    style.
-      pre#timer {
-      border: 1px solid black;
-      }
-  body(onload='connect()')
-    p The following box should show a running counter, updated by the server:
-    pre#timer.
-    button(type='button', onclick='closeConnection()') Close connection
+extends layout
+
+block title
+  | Test title
+block left
+  div left
+
+block right
+  div
+    nav
+      ul
+        li <a href="/hello">hello</a>
+        li <a href="/hello2">hello2</a>
+        li <a href="/sticky-footer-navbar">sticky-footer-navbar</a>
+        li <a href="/noboot">noboot</a>
+        li <a href="/hello">test3</a>
+        li <a href="/hello">test4</a>
+        li <a href="/hello">test5</a>

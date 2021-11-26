@@ -1,0 +1,12 @@
+html 
+  head 
+    title Employee Records System 
+    include noboot.cssjs.dt
+  body 
+    div.container 
+      div.menu 
+        include noboot.menu.dt
+      div.content 
+        block changingcontent
+      div.footer 
+        div.copyright Copyright &copy; 2021 

@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title
+      block title
+
+    link(rel="stylesheet", href="styles/common.css")
+    
+  body
+        
+    div#container
+      div#title.title
+        include navbar.dt
+      div.left#left
+        block left
+      div.right#right
+        block right
+
+      include footer.dt

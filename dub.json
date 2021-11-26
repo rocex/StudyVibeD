@@ -1,11 +1,13 @@
 {
 	"name": "gitlab-stats-web",
 	"authors": ["rocex<rocexwang@gmail.com>"],
+
 	"targetPath": ".dub",
 	"dependencies": {
 		"vibe-d": "~>0.9"
 	},
+
+	"license": "MIT",
 	"description": "gitlab stats web",
-	"license": "proprietary",
-	"copyright": "Copyright © 2021, rocex"
+	"copyright": "Copyright ©2021, rocex"
 }

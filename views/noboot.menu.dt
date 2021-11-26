@@ -1,0 +1,8 @@
+div.menu-item 
+  a.item-link(href="/") Home 
+div.menu-item 
+  a.item-link(href="about") About us 
+div.menu-item 
+  a.item-link(href="contact") Contact us 
+div.menu-item 
+  a.item-link.item-link-right(href="login") Login 
