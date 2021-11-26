@@ -39,6 +39,8 @@ auto getRouter()
     router.get("/sticky-footer-navbar", staticTemplate!"sticky-footer-navbar.html");
     router.get("/noboot", staticTemplate!"noboot.home.dt");
 
+    router.registerWebInterface(new EmployeeInterface);
+
     registerOthers(router);
 
     router.rebuild;
@@ -47,6 +49,11 @@ auto getRouter()
         stderr.writefln!"%s %s"(r.method, r.pattern);
 
     return router;
+}
+
+class EmployeeInterface
+{
+
 }
 
 void registerOthers(URLRouter router)
