@@ -3,7 +3,7 @@ extends layout
 block title
   | Test title
 block left
-  div left
+  div 
 
 block right
   div

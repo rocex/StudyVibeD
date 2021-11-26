@@ -39,7 +39,18 @@ auto getRouter()
     router.get("/sticky-footer-navbar", staticTemplate!"sticky-footer-navbar.html");
     router.get("/noboot", staticTemplate!"noboot.home.dt");
 
-    //
+    registerOthers(router);
+
+    router.rebuild;
+
+    foreach (r; router.getAllRoutes())
+        stderr.writefln!"%s %s"(r.method, r.pattern);
+
+    return router;
+}
+
+void registerOthers(URLRouter router)
+{
     const data = q{
         PUT /public/devices/commandList
         PUT /public/devices/logicStateList
@@ -76,11 +87,4 @@ auto getRouter()
     {
         router.match(a[0].to!HTTPMethod, a[1], (q, s) { s.writeBody("ok"); });
     }
-
-    foreach (r; router.getAllRoutes())
-        stderr.writefln!"%s %s"(r.method, r.pattern);
-
-    router.rebuild;
-
-    return router;
 }
