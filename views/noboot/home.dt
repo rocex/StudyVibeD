@@ -1,6 +1,7 @@
-extends noboot.layout 
+extends noboot/layout 
+
 block changingcontent 
-  h2 The Lorem Ipsum Company 
+  h2 The Lorem Ipsum Company
   div. 
     For the source text, <a href="https://lipsum.com/">go here.</a> 
     <br /><br /> 

@@ -3,7 +3,7 @@ import vibe.vibe;
 import std.algorithm;
 import std.array;
 import std.stdio;
-import employee.IEmployee;
+import employee;
 
 void main()
 {
@@ -37,14 +37,18 @@ auto getRouter()
 
     router.get("/hello", &hello);
     router.get("/hello2", staticTemplate!"hello.dt");
-    //router.get("/sticky-footer-navbar", staticTemplate!"sticky-footer-navbar.html");
-    router.get("/noboot", staticTemplate!"noboot.home.dt");
+    router.get("/sticky-footer-navbar", staticTemplate!"sticky-footer-navbar.html");
+    router.get("/noboot", staticTemplate!"noboot/home.dt");
 
-    router.registerWebInterface(new IEmployee);
+    // router.registerWebInterface(new EmployeeImpl());
 
-    registerOthers(router);
+    router.registerRestInterface(new EmployeeImpl());
 
-    router.rebuild;
+    router.registerRestInterface(new API());
+
+    // registerOthers(router);
+
+    //router.rebuild();
 
     foreach (r; router.getAllRoutes())
         logInfo("%s %s", r.method, r.pattern);
