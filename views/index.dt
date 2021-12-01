@@ -13,6 +13,8 @@ block right
         li <a href="/hello2">hello2</a>
         li <a href="/sticky-footer-navbar">sticky-footer-navbar</a>
         li <a href="/noboot">noboot</a>
-        li <a href="/employee/testString">employee/testString</a>
-        li <a href="/employee/testJson">employee/testJson</a>
-        li <a href="/api/api2">API</a>
+        li <a href="/api/employee/testString">rest employee/testString</a>
+        li <a href="/api/employee/testJson">rest employee/testJson</a>
+        li <a href="/api/api/api2">rest API</a>
+        li <a href="/race-bar-country">race bar country</a>
+        li <a href="/race-bar-country2">race bar country2</a>

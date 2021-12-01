@@ -3,6 +3,7 @@ import vibe.vibe;
 import std.algorithm;
 import std.array;
 import std.stdio;
+import std.traits;
 import employee;
 
 void main()
@@ -28,6 +29,28 @@ void hello(HTTPServerRequest req, HTTPServerResponse res)
     res.writeBody("Hello, World!");
 }
 
+void registerInterface(URLRouter router, string clazz)
+{
+    auto instance = Object.factory(clazz);
+
+    if (instance is null)
+    {
+        return;
+    }
+
+    // logInfo("[%s] type is [%s]", clazz, to!string((typeof(instance))));
+    // logInfo(cast(Object)(instance));
+
+    static if (is(typeof(instance) == class))
+    {
+        router.registerWebInterface(instance);
+    }
+    else static if (is(typeof(instance) == interface))
+    {
+        router.registerRestInterface(instance);
+    }
+}
+
 auto getRouter()
 {
     auto router = new URLRouter();
@@ -39,12 +62,25 @@ auto getRouter()
     router.get("/hello2", staticTemplate!"hello.dt");
     router.get("/sticky-footer-navbar", staticTemplate!"sticky-footer-navbar.html");
     router.get("/noboot", staticTemplate!"noboot/home.dt");
+    router.get("/race-bar-country", staticTemplate!"race-bar/race-bar-country.html");
+    router.get("/race-bar-country2", staticTemplate!"race-bar/race-bar-country2.html");
 
-    // router.registerWebInterface(new EmployeeImpl());
+    logInfo("EmployeeImpl %s", EmployeeImpl.classinfo.name);
 
-    router.registerRestInterface(new EmployeeImpl());
+    auto employee = cast(EmployeeImpl) Object.factory("employee.EmployeeImpl");
 
-    router.registerRestInterface(new API());
+    router.registerWebInterface(employee);
+
+    logInfo("IEmployee is class? %s", is(IEmployee == class));
+    logInfo("EmployeeImpl is class? %s", is(typeof(employee) == class));
+
+    logInfo("APIRoot is interface? %s", is(APIRoot == interface));
+    logInfo("API is interface? %s", is(API == interface));
+
+    router.registerRestInterface(employee, "api");
+    router.registerRestInterface(new API(), "api");
+
+    registerInterface(router, "employee.IEmployee");
 
     // registerOthers(router);
 
@@ -52,7 +88,6 @@ auto getRouter()
 
     foreach (r; router.getAllRoutes())
         logInfo("%s %s", r.method, r.pattern);
-
     return router;
 }
 
@@ -74,7 +109,6 @@ void registerOthers(URLRouter router)
         .map!(a => a.strip.split)
         .filter!(a => a.length)
         .array;
-
     foreach (a; data)
     {
         router.match(a[0].to!HTTPMethod, a[1], (q, s) { s.writeBody("ok"); });
