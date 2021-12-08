@@ -4,14 +4,32 @@ var app = {};
 
 var option;
 
-const updateFrequency = 5000;
+const updateFrequency = 3000;
 const dimension = 0;
 
-var countryColors = new Map();
+var barColors = new Map();
+var existColors = new Set();
+
+function getBarColor(corp_name) {
+    var color = barColors.get(corp_name);
+    if (!color) {
+        while (!existColors.has(color)) {
+            color = "hsl(" + Math.random() * 360 + ",70%, 70%)";
+
+            console.log(corp_name + "=" + color);
+
+            existColors.add(color);
+        }
+
+        barColors.set(corp_name, color);
+    }
+
+    return color;
+}
 
 //$.getJSON("./race-bar/country-data.json"),
 $.when($.getJSON("./race-bar/country-life-expectancy-data.json")).done(function (res0, flag) {
-    let startIndex = 50;
+    let startIndex = 0;
 
     const data = res0;
     const years = [];
@@ -68,12 +86,7 @@ $.when($.getJSON("./race-bar/country-life-expectancy-data.json")).done(function 
                 seriesLayoutBy: "column",
                 itemStyle: {
                     color: function (param) {
-                        var color = countryColors.get(param.name);
-                        if (!color) {
-                            color = "hsl(" + Math.random() * 360 + ",70%, 70%)";
-                            countryColors.set(param.name, color);
-                        }
-                        return color;
+                        return getBarColor(param.name);
                     },
                 },
                 encode: {
@@ -90,7 +103,7 @@ $.when($.getJSON("./race-bar/country-life-expectancy-data.json")).done(function 
                 },
             },
         ],
-        animationDuration: 2000, // Disable init animation
+        animationDuration: updateFrequency, // Disable init animation
         animationDurationUpdate: updateFrequency,
         animationEasing: "linear",
         animationEasingUpdate: "linear",

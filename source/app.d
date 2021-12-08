@@ -29,28 +29,6 @@ void hello(HTTPServerRequest req, HTTPServerResponse res)
     res.writeBody("Hello, World!");
 }
 
-void registerInterface(URLRouter router, string clazz)
-{
-    auto instance = Object.factory(clazz);
-
-    if (instance is null)
-    {
-        return;
-    }
-
-    // logInfo("[%s] type is [%s]", clazz, to!string((typeof(instance))));
-    // logInfo(cast(Object)(instance));
-
-    static if (is(typeof(instance) == class))
-    {
-        router.registerWebInterface(instance);
-    }
-    else static if (is(typeof(instance) == interface))
-    {
-        router.registerRestInterface(instance);
-    }
-}
-
 auto getRouter()
 {
     auto router = new URLRouter();
@@ -79,8 +57,6 @@ auto getRouter()
 
     router.registerRestInterface(employee, "api");
     router.registerRestInterface(new API(), "api");
-
-    registerInterface(router, "employee.IEmployee");
 
     // registerOthers(router);
 
