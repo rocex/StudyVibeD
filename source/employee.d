@@ -35,13 +35,13 @@ class EmployeeImpl : IEmployee
 @path("/api/")
 interface APIRoot
 {
-    @path("api2")
+    @path("api2") @trusted
     string get2();
 }
 
 class API : APIRoot
 {
-    override string get2()
+    override string get2() @trusted
     {
         return "Hello, World";
     }
